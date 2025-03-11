@@ -164,30 +164,51 @@ export default function AIExpertConsultation() {
 
         // Simple symptom detection
         const lowerMessage = message.toLowerCase();
-        if (lowerMessage.includes("chest pain") || lowerMessage.includes("heart")) {
-          aiResponse = "I notice you mentioned chest pain. This could be concerning. Can you describe the pain and when it started?";
+        if (
+          lowerMessage.includes("chest pain") ||
+          lowerMessage.includes("heart")
+        ) {
+          aiResponse =
+            "I notice you mentioned chest pain. This could be concerning. Can you describe the pain and when it started?";
           newSymptoms = [...symptoms, "chest pain"];
           newSeverity = "high";
           if (!showReferral) setShowReferral(true);
-        } else if (lowerMessage.includes("headache") || lowerMessage.includes("migraine")) {
-          aiResponse = "Headaches can have many causes. How long have you been experiencing them, and how severe is the pain?";
+        } else if (
+          lowerMessage.includes("headache") ||
+          lowerMessage.includes("migraine")
+        ) {
+          aiResponse =
+            "Headaches can have many causes. How long have you been experiencing them, and how severe is the pain?";
           newSymptoms = [...symptoms, "headache"];
           newSeverity = "medium";
-        } else if (lowerMessage.includes("rash") || lowerMessage.includes("skin")) {
-          aiResponse = "Skin conditions can be difficult to diagnose without visual examination. Can you describe the appearance and location of the rash?";
+        } else if (
+          lowerMessage.includes("rash") ||
+          lowerMessage.includes("skin")
+        ) {
+          aiResponse =
+            "Skin conditions can be difficult to diagnose without visual examination. Can you describe the appearance and location of the rash?";
           newSymptoms = [...symptoms, "skin rash"];
           newSeverity = "medium";
           if (!showReferral) setShowReferral(true);
-        } else if (lowerMessage.includes("fever") || lowerMessage.includes("temperature")) {
-          aiResponse = "Fever is often a sign that your body is fighting an infection. How high is your temperature, and do you have any other symptoms?";
+        } else if (
+          lowerMessage.includes("fever") ||
+          lowerMessage.includes("temperature")
+        ) {
+          aiResponse =
+            "Fever is often a sign that your body is fighting an infection. How high is your temperature, and do you have any other symptoms?";
           newSymptoms = [...symptoms, "fever"];
           newSeverity = "medium";
-        } else if (lowerMessage.includes("cough") || lowerMessage.includes("breathing")) {
-          aiResponse = "Respiratory symptoms can have various causes. Is your cough dry or productive, and are you experiencing any shortness of breath?";
+        } else if (
+          lowerMessage.includes("cough") ||
+          lowerMessage.includes("breathing")
+        ) {
+          aiResponse =
+            "Respiratory symptoms can have various causes. Is your cough dry or productive, and are you experiencing any shortness of breath?";
           newSymptoms = [...symptoms, "cough"];
           newSeverity = "medium";
         } else {
-          aiResponse = "Thank you for sharing that information. Can you tell me more about your symptoms and when they started?";
+          aiResponse =
+            "Thank you for sharing that information. Can you tell me more about your symptoms and when they started?";
         }
 
         // Update symptoms and severity
@@ -485,4 +506,43 @@ export default function AIExpertConsultation() {
 
                     {assessment && (
                       <div>
-                        <h4 className="text-sm font-medium text-gray-500 mb-1
+                        <h4 className="text-sm font-medium text-gray-500 mb-1">
+                          Assessment
+                        </h4>
+                        <p className="text-sm">{assessment}</p>
+                      </div>
+                    )}
+
+                    {showReferral && !referralSent && (
+                      <div className="mt-4">
+                        <Button
+                          onClick={sendReferral}
+                          className="w-full bg-red-600 hover:bg-red-700"
+                        >
+                          Refer to Doctor
+                        </Button>
+                        <p className="text-xs text-gray-500 mt-2">
+                          Based on your symptoms, we recommend a consultation
+                          with a doctor.
+                        </p>
+                      </div>
+                    )}
+
+                    {referralSent && (
+                      <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-md">
+                        <p className="text-sm text-green-700 flex items-center gap-2">
+                          <CheckCircle className="h-4 w-4" />
+                          Referral sent to doctor
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </main>
+    </>
+  );
+}
